@@ -1,0 +1,159 @@
+Steps to Dockerize the Flask App:
+1. Create a Dockerfile
+Inside your project directory (ecom_express/), create a file named Dockerfile:
+
+touch Dockerfile
+Add the following content to your Dockerfile:
+
+Dockerfile
+
+# Use an official Python runtime as a parent image
+FROM python:3.9-slim
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Copy the current directory contents into the container at /app
+COPY . /app
+
+# Install Flask (and any other required Python packages)
+RUN pip install --no-cache-dir flask
+
+# Expose the port that the Flask app runs on
+EXPOSE 5000
+
+# Define environment variable for Flask to run in production mode
+ENV FLASK_ENV=production
+
+# Run the app when the container launches
+CMD ["python", "app.py"]
+
+
+
+
+3. Build and Run the Docker Image
+To build and run your Dockerized Flask app, follow these steps:
+
+Build the Docker Image: Run this command inside your project directory:
+
+
+docker build -t flask-ecom-express .
+
+This will build the Docker image and tag it as flask-ecom-express.
+
+Run the Docker Container: After the image is built, you can run the container using:
+
+
+docker run -d -p 5001:5001 flask-ecom-express
+
+This command will:
+
+
+
+http://localhost:5000
+
+
+
+o push an image to your Docker Hub repository, follow these steps:
+
+1. Login to Docker Hub
+Log in to your Docker Hub account from your terminal using the following command:
+
+
+docker login
+
+2. Tag the Docker Image
+
+docker tag <local_image_name> <dockerhub_username>/<repository_name>:<tag>
+
+docker tag Ecom_app divyavundavalli/Ecom_app:latest
+
+3. Push the Image
+Once the image is tagged, push it to Docker Hub using the following command:
+
+
+docker push <dockerhub_username>/<repository_name>:<tag>
+docker push divyavundavalli/Ecom_app:latest
+
+
+
+4. Verify the Image on Docker Hub
+Go to your Docker Hub account, navigate to the repository, and check if the image has been uploaded successfully.
+
+
+---------------
+
+
+Access the Jenkins:
+Set up docker credentials
+Install docker plugins and setup docker installations under tools section
+
+
+Restart Jenkins and try again.
+
+
+------------
+
+brew install python
+
+
+python3 -m venv myenv
+
+
+
+source myenv/bin/activate
+pip install pytest==7.4.0 pytest-cov==4.1.0 beautifulsoup4==4.12.2
+pip install flask
+ pytest -v test.py
+pytest test.py
+
+pytest --cov=app test.py
+
+
+HTML publisher plugin
+Email Extension Template plugin
+
+
+
+------------------------------------
+
+
+shared-library/
+├── vars/
+│   ├── dockerBuildPush.groovy
+│   ├── dockerLogin.groovy
+│   ├── dockerBuild.groovy
+│   ├── dockerPush.groovy
+│   └── cleanupDocker.groovy
+
+ Src--- .java
+
+
+
+Configure the shared library in Jenkins:
+
+Go to Manage Jenkins > Configure System
+Under "Global Pipeline Libraries" add a new library:
+
+Name: shared-library
+Default version: main
+Retrieval method: Modern SCM
+Select Git and provide your shared library repository URL
+
+
+
+
+Create a new seed job in Jenkins:
+
+Create a new freestyle project
+Add the seed job script from the second artifact
+Under Build, add a "Process Job DSLs" build step
+Paste the seedJob.groovy content
+
+
+
+
+
+
+
+
